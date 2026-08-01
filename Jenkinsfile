@@ -2,14 +2,15 @@ pipeline {
     agent any
 
     environment {
-        DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials-id')
         IMAGE_NAME = 'shyamprasad2310/flask-app'
     }
 
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/YOUR_USERNAME/flask-app.git'
+                git branch: 'main',
+                    url: 'https://github.com/shyampuli/flask-app.git',
+                    credentialsId: 'github-credentials-id'
             }
         }
 
