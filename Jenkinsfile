@@ -12,6 +12,8 @@ pipeline {
 
     stages {
 
+        
+
         stage('Checkout') {
             steps {
                 git branch: "${GIT_BRANCH}", url: "${GIT_REPO}"
@@ -34,7 +36,7 @@ pipeline {
                     usernameVariable: 'HUB_USER',
                     passwordVariable: 'HUB_PASS'
                 )]) {
-                    bat 'echo %HUB_PASS% | docker login -u %HUB_USER% --password-stdin'
+                    bat 'echo %HUB_PASS% | docker login -u %HUB_USER%'
                 }
             }
         }
