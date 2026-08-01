@@ -2,19 +2,16 @@ pipeline {
     agent any
 
     stages {
-        stage('Test Credential') {
+        stage('Login Test') {
             steps {
-                withCredentials([
-                    usernamePassword(
-                        credentialsId: 'dockerhub-credentials-id',
-                        usernameVariable: 'USER',
-                        passwordVariable: 'PASS'
-                    )
-                ]) {
-
+                withCredentials([usernamePassword(
+                    credentialsId: 'dockerhub-credentials-id',
+                    usernameVariable: 'USER',
+                    passwordVariable: 'PASS'
+                )]) {
                     bat '''
-                    echo USER=%USER%
-                    powershell -Command "$env:PASS.Length"
+                    echo %PASS% | docker login -u %USER% --password-stdin
+                    docker info
                     '''
                 }
             }
