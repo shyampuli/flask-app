@@ -36,7 +36,7 @@ pipeline {
                     usernameVariable: 'HUB_USER',
                     passwordVariable: 'HUB_PASS'
                 )]) {
-                    bat 'echo %HUB_PASS% | docker login -u %HUB_USER%'
+                    bat 'echo %HUB_PASS% | docker login -u %HUB_USER%  --password-stdin'
                 }
             }
         }
