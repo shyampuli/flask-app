@@ -12,8 +12,6 @@ pipeline {
 
     stages {
 
-        
-
         stage('Checkout') {
             steps {
                 git branch: "${GIT_BRANCH}", url: "${GIT_REPO}"
@@ -29,14 +27,17 @@ pipeline {
             }
         }
 
-        stage('Login to Docker Hub') {
+        stage('Debug Credentials') {
             steps {
                 withCredentials([usernamePassword(
                     credentialsId: 'dockerhub-credentials-id',
                     usernameVariable: 'HUB_USER',
                     passwordVariable: 'HUB_PASS'
                 )]) {
-                    bat 'echo %HUB_PASS% | docker login -u %HUB_USER%  --password-stdin'
+                    bat '''
+                    echo USER=%HUB_USER%
+                    powershell -Command "Write-Host TOKEN_LENGTH:$($env:HUB_PASS.Length)"
+                    '''
                 }
             }
         }
