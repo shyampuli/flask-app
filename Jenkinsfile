@@ -2,18 +2,14 @@ pipeline {
     agent any
 
     stages {
-        stage('Login Test') {
+        stage('Docker Test') {
             steps {
-                withCredentials([usernamePassword(
-                    credentialsId: 'dockerhub-credentials-id',
-                    usernameVariable: 'USER',
-                    passwordVariable: 'PASS'
-                )]) {
-                    bat '''
-                    echo %PASS% | docker login -u %USER% --password-stdin
-                    docker info
-                    '''
-                }
+                bat '''
+                whoami
+                docker context ls
+                docker info
+                docker login -u shyamprasad2310
+                '''
             }
         }
     }
